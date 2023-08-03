@@ -13,25 +13,32 @@ connection.once('open', async () => {
     // Drop existing Users
     await User.deleteMany({});
 
-    // Create empty array to hold users
-    const users = [];
-
-    // Loop 20 times -- add users to the users array
-    for (let i = 0; i < 20; i++) {
-        // Get random thoughts, usernames, and emails using a helper function imported from ./data
-        const thoughts = getRandomThoughts(3);
+    // Generate an array of 20 users with associated thoughts
+    const users = Array.from({ length: 20 }, () => {
         const username = getRandomUsername();
         const email = getRandomEmail();
+        const thoughts = getRandomThoughts(3).map((thoughtText) => ({
+            thoughtText,
+            username,
+        }));
 
-        users.push({
+        // TODO: split thoughts so the objects don't get pushed to User and also random Math the reactions and friends
+
+        return {
             username,
             email,
             thoughts,
-        });
-    }
+        };
+    });
 
     // Add users to the collection and await the results
     await User.collection.insertMany(users);
+
+    // Flatten the thoughts array to insert into the Thought collection
+    const allThoughts = users.flatMap((user) => user.thoughts);
+
+    // Insert all thoughts into the Thought collection
+    await Thought.collection.insertMany(allThoughts);
 
     // Log out the seed data to indicate what should appear in the database
     console.table(users);

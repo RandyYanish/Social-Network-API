@@ -192,13 +192,25 @@ const thoughts = [
 ];
 
 // Get a random item given an array
-const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const getRandomUniqueArrItem = (arr) => {
+    if (arr.length === 0) {
+        return null;
+    }
+
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    const randomItem = arr[randomIndex];
+
+    // Remove selected item from the array to protect against duplicate key error
+    arr.splice(randomIndex, 1);
+
+    return randomItem;
+};
 
 // Get a random email
-const getRandomEmail = () => getRandomArrItem(emails);
+const getRandomEmail = () => getRandomUniqueArrItem(emails);
 
 // Get a random username
-const getRandomUsername = () => getRandomArrItem(usernames);
+const getRandomUsername = () => getRandomUniqueArrItem(usernames);
 
 // Get random thoughts by int
 const getRandomThoughts = (int) => {
@@ -209,7 +221,7 @@ const getRandomThoughts = (int) => {
             break;
         }
 
-        const randomThought = getRandomArrItem(thoughts);
+        const randomThought = getRandomUniqueArrItem(thoughts);
         thoughtsArray.push(randomThought);
     }
 
