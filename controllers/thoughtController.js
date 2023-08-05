@@ -75,9 +75,11 @@ const createReaction = async (req, res) => {
 const deleteReaction = async (req, res) => {
     try {
         const thoughtId = req.params.thoughtId;
-        const reactionId = req.body.reactionId;
+        const reactionId = req.params.reactionId;
         const thought = await Thought.findById(thoughtId);
-        thought.reactions = thought.reactions.filter((reaction) => reaction.reactionId !== reactionId);
+        thought.reactions = thought.reactions.filter(
+            (reaction) => reaction.reactionId.toString() !== reactionId.toString()
+        );
         await thought.save();
         res.json(thought);
     } catch (error) {

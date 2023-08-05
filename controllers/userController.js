@@ -1,9 +1,9 @@
-const { User } = require('../models');
+const { Thought, User } = require('../models');
 
 // Function to get all users
 const getUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().populate('thoughts');
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
@@ -47,7 +47,9 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const userId = req.params.userId;
-        // BONUS: Removing a user's associated thoughts when deleted
+        // BONUS: Removing the user's ID from other users' friends list
+        await User.updateMany({}, { $pull: { friends: userId } });
+        // Removing a user's associated thoughts when deleted
         await Thought.deleteMany({ username: userId });
         await User.findByIdAndDelete(userId);
         res.json({ message: 'User deleted successfully' });
@@ -66,7 +68,7 @@ const addFriend = async (req, res) => {
         await user.save();
         res.json(user);
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Internal Server Error' + error });
     }
 };
 

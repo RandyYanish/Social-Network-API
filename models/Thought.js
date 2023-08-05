@@ -20,12 +20,17 @@ const thoughtSchema = new Schema(
             type: String,
             required: true,
         },
+        userId: {
+            type: String,
+        },
         reactions: [reactionSchema],
     },
     {
         toJSON: {
             getters: true,
+            virtuals: true,
         },
+        id: false,
     }
 );
 
