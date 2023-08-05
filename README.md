@@ -16,38 +16,54 @@ This is the backend of a social media site that uses NoSQL (mongodb) to store al
 
 ## Application
 
-
+Checkout a walkthrough of the application showing how to start and work with the API on [YouTube!](https://youtu.be/EfVRrUy9IZc)
 
 ## Installation
 
 First, download this repository.
 
-Open your terminal and direct into the e-commerce-back-end folder
+Open your terminal and direct into the Social-Media-API folder
 
 Run this command in your terminal:
 
 ```
-npm i
+npm install
+
+or
+
+pnpm install
 ```
 
 ## Usage
 
-To use the application, configure the database in the db folder by executing: 
-
-```
-CREATE DATABASE techblog_db;
-```
-
-After that, seed the database by running this in your terminal:
+To use the application, configure the database in the db folder and seed the database with randomized data by executing: 
 
 ```
 npm run seed
+
+or
+
+pnpm run seed
 ```
 
 Then run this in your terminal:
 
 ```
 npm start
+
+or 
+
+pnpm start
+```
+
+If you want to watch the database using nodemon, run this instead of the start script:
+
+```
+npm dev
+
+or 
+
+pnpm dev
 ```
 
 ## Contributing
