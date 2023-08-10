@@ -25,7 +25,7 @@ const getSingleThought = async (req, res) => {
 const createThought = async (req, res) => {
     try {
         const { thoughtText, username, userId } = req.body;
-        const thought = await Thought.create({ thoughtText, username });
+        const thought = await Thought.create({ thoughtText, username, userId });
         const user = await User.findById(userId);
         user.thoughts.push(thought._id);
         await user.save();

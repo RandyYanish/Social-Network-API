@@ -50,7 +50,7 @@ const deleteUser = async (req, res) => {
         // BONUS: Removing the user's ID from other users' friends list
         await User.updateMany({}, { $pull: { friends: userId } });
         // Removing a user's associated thoughts when deleted
-        await Thought.deleteMany({ username: userId });
+        await Thought.deleteMany({ userId });
         await User.findByIdAndDelete(userId);
         res.json({ message: 'User deleted successfully' });
     } catch (error) {
