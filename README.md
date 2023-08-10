@@ -16,7 +16,7 @@ This is the backend of a social media site that uses NoSQL (mongodb) to store al
 
 ## Application
 
-Checkout a walkthrough of the application showing how to start and work with the API on [YouTube!](https://youtu.be/EfVRrUy9IZc)
+Checkout a walkthrough of the application showing how to start and work with the API on [YouTube!](https://youtu.be/hQirnTew5qs)
 
 ## Installation
 
